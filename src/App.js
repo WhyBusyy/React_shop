@@ -1,9 +1,13 @@
+import { useState } from "react";
 import "./App.css";
-import { Container, Nav, Navbar, Row, Col, } from "react-bootstrap";
-import logo from "./images/ahnyu-logo.png";
-import shirt from "./images/shirt.jpeg";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import logo from "./ahnyu-logo.png";
+import data from "./data";
+import ProductList from "./ProductList";
 
 function App() {
+  let [products] = useState(data);
+
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -21,13 +25,7 @@ function App() {
         style={{ backgroundImage: "url(" + logo + ")" }} // 문자 안에 변수 집어넣는 법
       ></div>
 
-      <Container>
-        <Row>
-          <Col><img src={shirt} alt="shirt" width="80%"/><h5>Paper shirts</h5><p>바스락거림이 매력적인 셔츠</p></Col>
-          <Col><img src={shirt} alt="shirt" width="80%"/><h5>Paper shirts</h5><p>바스락거림이 매력적인 셔츠</p></Col>
-          <Col><img src={shirt} alt="shirt" width="80%"/><h5>Paper shirts</h5><p>바스락거림이 매력적인 셔츠</p></Col>
-        </Row>
-      </Container>
+      <ProductList products = {products} />
     </div>
   );
 }
