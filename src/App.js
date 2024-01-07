@@ -45,7 +45,7 @@ function App() {
             </>
           }
         />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail products = {products}/>} />
 
         {/* nested routes 문법 */}
         <Route path="/about" element={<About />}>
