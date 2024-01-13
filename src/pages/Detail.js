@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //url파라미터 읽어오는 라이브러리
 
@@ -19,7 +20,22 @@ import { useParams } from "react-router-dom";
 //   padding : 20px;
 // `
 
+
+
 export default function Detail({ products }) {
+
+  useEffect(() => {
+    console.log('안녕');
+    // 실행 시점 : 렌더링이 다 된 이후 동작함
+    // 어려운 연산이나 서버에서 데이터 가져오는 작업, 타이머 장착 등에 사용
+    // html이 먼저 렌더링 되고 useEffect 내 코드가 실행되므로 사용자 입장에서 로딩 시간이
+    // 상대적으로 짧게 느껴질 수 있음,,
+  })
+
+  setTimeout(()=>{}, 2000)
+
+  let [ count, setCount ] = useState(0);
+
   let { id } = useParams();
   let selected = products.find((item) => {
     return item.id == id;
@@ -27,6 +43,10 @@ export default function Detail({ products }) {
 
   return (
     <div className="container">
+      <div className="alert alert-warning">
+        2초 이내 구매시 할인
+      </div>
+      <button onClick={() => {setCount(count+1)}}>버튼</button>
       {/* <Box> */}
       {/* <YellowBtn bg="blue">버튼</YellowBtn>
       <YellowBtn bg="orange">버튼</YellowBtn> */}
