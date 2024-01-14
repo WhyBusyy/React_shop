@@ -27,6 +27,10 @@ export default function Detail({ products }) {
     // html이 먼저 렌더링 되고 useEffect 내 코드가 실행되므로 사용자 입장에서 로딩 시간이
     // 상대적으로 짧게 느껴질 수 있음,,
     setTimeout(() => {setAlert(false)}, 2000);
+
+    // return () => {
+    // 코드~~~~ (기존 타이머는 제거해주세요~~) clearTimeout(a)
+    // }  useEffect 내의 함수가 실행 되기 전에 실행되는 내용 보통 clean up function으로 작성
   }, []); // [] dependency []가 변할때만 함수가 실행됨.
 
   let [alert, setAlert] = useState(true);
