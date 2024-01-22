@@ -6,9 +6,11 @@ import data from "./components/data";
 import ProductList from "./components/ProductList";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./pages/Detail";
+import axios from "axios";
 
 function App() {
-  let [products] = useState(data);
+  let [products, setProducts] = useState(data);
+  let [clickNum, setClickNum] = useState(0);
   let navigate = useNavigate();
 
   return (
@@ -42,10 +44,54 @@ function App() {
                 style={{ backgroundImage: "url(" + logo + ")" }}
               ></div>
               <ProductList products={products} />
+
+              {/* ajax 이용해서 데이터 받아오기 - axios 사용 */}
+              <button
+                onClick={() => {
+                  // 로딩중 ui 띄우기
+                  setClickNum(clickNum+1);
+                  if (clickNum === 1) {
+                    console.log(clickNum);
+                    axios
+                    .get("https://codingapple1.github.io/shop/data2.json")
+                    .then((result) => {
+                      console.log(result.data);
+                      let copy = [...products, ...result.data];
+                      setProducts(copy);
+                      // 로딩중 ui 제거
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                    });
+                  } else if (clickNum === 2) {
+                    console.log(clickNum);
+                    axios
+                    .get("https://codingapple1.github.io/shop/data3.json")
+                    .then((result) => {
+                      console.log(result.data);
+                      let copy = [...products, ...result.data];
+                      setProducts(copy);
+                      // 로딩중 ui 제거
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                    });
+                  } else if (clickNum > 2) {
+                    console.log(clickNum);
+                    alert("더 이상 상품이 없어요,,")
+                  }
+
+                  // 한번에 여러번 get 요청해야할 때
+                  // Promise.all([axios.get('/url1'),axios.get('/url2')])
+                  // .then(()=>{ })
+                }}
+              >
+                버튼
+              </button>
             </>
           }
         />
-        <Route path="/detail/:id" element={<Detail products = {products}/>} />
+        <Route path="/detail/:id" element={<Detail products={products} />} />
 
         {/* nested routes 문법 */}
         <Route path="/about" element={<About />}>
