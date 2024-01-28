@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 //url파라미터 읽어오는 라이브러리
 
 // import styled from "styled-components";
@@ -26,7 +27,9 @@ export default function Detail({ products }) {
     // 어려운 연산이나 서버에서 데이터 가져오는 작업, 타이머 장착 등에 사용
     // html이 먼저 렌더링 되고 useEffect 내 코드가 실행되므로 사용자 입장에서 로딩 시간이
     // 상대적으로 짧게 느껴질 수 있음,,
-    setTimeout(() => {setAlert(false)}, 2000);
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
 
     // return () => {
     // 코드~~~~ (기존 타이머는 제거해주세요~~) clearTimeout(a)
@@ -36,6 +39,8 @@ export default function Detail({ products }) {
   let [alert, setAlert] = useState(true);
 
   let [count, setCount] = useState(0);
+
+  let [tap, setTap] = useState(0);
 
   let { id } = useParams();
   let selected = products.find((item) => {
@@ -73,6 +78,40 @@ export default function Detail({ products }) {
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>
+      <div>
+        <Nav variant="tabs" defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link eventKey="link0" onClick={() => {setTap(0)}}>버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link1" onClick={() => {setTap(1)}}>버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link2" onClick={() => {setTap(2)}}>버튼2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        {/* {tap == 0 ? (
+          <div>내용 0</div>
+        ) : tap == 1 ? (
+          <div>내용 1</div>
+        ) : tap == 2 ? (
+          <div>내용 2</div>
+        ) : null} */}
+        <TapContent tap={tap} />
+      </div>
     </div>
   );
+}
+
+function TapContent({ tap }) {
+  // if (tap == 0) {
+  //   return <div>내용 0</div>;
+  // }
+  // if (tap == 1) {
+  //   return <div>내용 1</div>;
+  // }
+  // if (tap == 2) {
+  //   return <div>내용 2</div>;
+  // }
+  return [<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][tap]
 }
