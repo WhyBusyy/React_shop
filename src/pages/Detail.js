@@ -47,8 +47,19 @@ export default function Detail({ products }) {
     return item.id == id;
   });
 
+  let [fade, setFade] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      setFade("");
+    };
+  }, []);
+
   return (
-    <div className="container">
+    <div className={`container start ${fade}`}>
       {alert == true ? (
         <div className="alert alert-warning">2초 이내 구매시 할인</div>
       ) : null}
@@ -81,13 +92,34 @@ export default function Detail({ products }) {
       <div>
         <Nav variant="tabs" defaultActiveKey="link0">
           <Nav.Item>
-            <Nav.Link eventKey="link0" onClick={() => {setTap(0)}}>버튼0</Nav.Link>
+            <Nav.Link
+              eventKey="link0"
+              onClick={() => {
+                setTap(0);
+              }}
+            >
+              버튼0
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link1" onClick={() => {setTap(1)}}>버튼1</Nav.Link>
+            <Nav.Link
+              eventKey="link1"
+              onClick={() => {
+                setTap(1);
+              }}
+            >
+              버튼1
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link2" onClick={() => {setTap(2)}}>버튼2</Nav.Link>
+            <Nav.Link
+              eventKey="link2"
+              onClick={() => {
+                setTap(2);
+              }}
+            >
+              버튼2
+            </Nav.Link>
           </Nav.Item>
         </Nav>
         {/* {tap == 0 ? (
@@ -104,6 +136,16 @@ export default function Detail({ products }) {
 }
 
 function TapContent({ tap }) {
+  let [fade, setFade] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      setFade("");
+    };
+  }, [tap]);
   // if (tap == 0) {
   //   return <div>내용 0</div>;
   // }
@@ -113,5 +155,9 @@ function TapContent({ tap }) {
   // if (tap == 2) {
   //   return <div>내용 2</div>;
   // }
-  return [<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][tap]
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][tap]}
+    </div>
+  );
 }
