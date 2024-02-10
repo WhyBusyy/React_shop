@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { Context1 } from "./../App.js";
+// context api 사용법 = 보관함 가져오기
+
 //url파라미터 읽어오는 라이브러리
 
 // import styled from "styled-components";
@@ -22,6 +25,9 @@ import { Nav } from "react-bootstrap";
 // `
 
 export default function Detail({ products }) {
+  let { stock } = useContext(Context1);
+  // object형으로 저장됨
+
   useEffect(() => {
     // 실행 시점 : 렌더링이 다 된 이후 동작함
     // 어려운 연산이나 서버에서 데이터 가져오는 작업, 타이머 장착 등에 사용
@@ -136,6 +142,8 @@ export default function Detail({ products }) {
 }
 
 function TapContent({ tap, products }) {
+  let { stock } = useContext(Context1);
+
   let [fade, setFade] = useState("");
   useEffect(() => {
     setTimeout(() => {
@@ -158,9 +166,14 @@ function TapContent({ tap, products }) {
   return (
     <div className={`start ${fade}`}>
       {
-        [<div>{products[0].title}</div>, <div>내용 1</div>, <div>내용 2</div>][
-          tap
-        ]
+        [
+          <div>
+            {products[0].title}
+            {stock[0]}
+          </div>,
+          <div>내용 1</div>,
+          <div>내용 2</div>,
+        ][tap]
       }
     </div>
   );
