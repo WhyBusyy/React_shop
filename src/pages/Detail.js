@@ -129,13 +129,13 @@ export default function Detail({ products }) {
         ) : tap == 2 ? (
           <div>내용 2</div>
         ) : null} */}
-        <TapContent tap={tap} />
+        <TapContent products={products} tap={tap} />
       </div>
     </div>
   );
 }
 
-function TapContent({ tap }) {
+function TapContent({ tap, products }) {
   let [fade, setFade] = useState("");
   useEffect(() => {
     setTimeout(() => {
@@ -157,7 +157,11 @@ function TapContent({ tap }) {
   // }
   return (
     <div className={`start ${fade}`}>
-      {[<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][tap]}
+      {
+        [<div>{products[0].title}</div>, <div>내용 1</div>, <div>내용 2</div>][
+          tap
+        ]
+      }
     </div>
   );
 }
