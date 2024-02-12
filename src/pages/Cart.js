@@ -1,6 +1,12 @@
+import { useSelector } from "react";
 import { Table } from "react-bootstrap";
 
 function Cart() {
+  let user = useSelector((state) => {
+    return state.user;
+  });
+  let itemInCart = useSelector((state) => state.itemInCart);
+
   return (
     <div>
       <Table>
