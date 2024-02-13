@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { Context1 } from "./../App.js";
+import { addToCart } from "./../store";
+import { useDispatch, useSelector } from "react-redux";
 // context api 사용법 = 보관함 가져오기
 
 //url파라미터 읽어오는 라이브러리
@@ -25,6 +27,9 @@ import { Context1 } from "./../App.js";
 // `
 
 export default function Detail({ products }) {
+  let state = useSelector((state) => state);
+  let dispatch = useDispatch();
+
   let { stock } = useContext(Context1);
   // object형으로 저장됨
 
@@ -92,7 +97,16 @@ export default function Detail({ products }) {
           <h4 className="pt-5">{selected.title}</h4>
           <p>{selected.content}</p>
           <p>{selected.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(
+                addToCart({ id: selected.id, name: selected.title, count: 1 })
+              );
+            }}
+          >
+            주문하기
+          </button>
         </div>
       </div>
       <div>
