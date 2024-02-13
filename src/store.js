@@ -8,19 +8,27 @@ let cart = createSlice({
     { id: 2, name: "Grey Yordan", count: 1 },
   ],
   reducers: {
-    increaseItem(state, action) {
+    // 숙제 1
+    addCount(state, action) {
       state.map((e) => {
         if (e.id === action.payload) e.count += 1;
       });
+      // 강의 숙제 1 해설
+      // let number = state.findIndex((a) => {
+      //   return a.id === action.payload;
+      // });
+      // state[number].count++;
     },
-    addToCart(state, action){
+
+    // 강의 숙제 2
+    addToCart(state, action) {
       state.push(action.payload);
       console.log(action.payload);
-    }
+    },
   },
 });
 
-export let { increaseItem, addToCart } = cart.actions;
+export let { addCount, addToCart } = cart.actions;
 
 export default configureStore({
   reducer: {

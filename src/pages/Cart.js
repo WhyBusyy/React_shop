@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { increase } from "./../store/userSlice";
-import { increaseItem } from "./../store";
+import { addCount } from "./../store";
 
 function Cart() {
   let state = useSelector((state) => state);
@@ -36,7 +36,7 @@ function Cart() {
               <td>
                 <button
                   onClick={() => {
-                    dipatch(increaseItem(state.cart[i].id));
+                    dipatch(addCount(state.cart[i].id));
                   }}
                 >
                   +

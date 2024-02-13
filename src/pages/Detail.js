@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { Context1 } from "./../App.js";
 import { addToCart } from "./../store";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // context api 사용법 = 보관함 가져오기
 
 //url파라미터 읽어오는 라이브러리
@@ -27,8 +27,8 @@ import { useDispatch, useSelector } from "react-redux";
 // `
 
 export default function Detail({ products }) {
-  let state = useSelector((state) => state);
   let dispatch = useDispatch();
+  let navigate = useNavigate();
 
   let { stock } = useContext(Context1);
   // object형으로 저장됨
@@ -101,7 +101,8 @@ export default function Detail({ products }) {
             className="btn btn-danger"
             onClick={() => {
               dispatch(
-                addToCart({ id: selected.id, name: selected.title, count: 1 })
+                addToCart({ id: selected.id, name: selected.title, count: 1 }),
+                navigate("/cart")
               );
             }}
           >
