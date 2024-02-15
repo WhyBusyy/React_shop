@@ -16,6 +16,12 @@ export let Context1 = createContext();
 // 그래서 그냥 잘 안쓰고 외부라이브러리 사용함.
 
 function App() {
+  //로컬스토리지는 배열,객체타입 저장 불가 >> JSON양식으로 저장
+  let obj = { name: "kim" };
+  localStorage.setItem("data", JSON.stringify(obj));
+  let outPut = localStorage.getItem("data");
+  JSON.parse(outPut);
+
   let [products, setProducts] = useState(data);
   let [stock] = useState([10, 11, 12]);
   let [clickNum, setClickNum] = useState(0);
