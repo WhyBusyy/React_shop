@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import logo from "./ahnyu-logo.png";
@@ -16,6 +16,11 @@ export let Context1 = createContext();
 // 그래서 그냥 잘 안쓰고 외부라이브러리 사용함.
 
 function App() {
+  useEffect(() => {
+    let outPut = localStorage.getItem("watched");
+    if (!outPut) localStorage.setItem("watched", JSON.stringify([]));
+  }, []);
+
   //로컬스토리지는 배열,객체타입 저장 불가 >> JSON양식으로 저장
   let obj = { name: "kim" };
   localStorage.setItem("data", JSON.stringify(obj));

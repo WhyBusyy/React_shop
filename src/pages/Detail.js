@@ -69,6 +69,15 @@ export default function Detail({ products }) {
     };
   }, []);
 
+  useEffect(() => {
+    let outPut = localStorage.getItem("watched");
+    outPut = JSON.parse(outPut);
+    outPut.push(selected.id);
+    outPut = new Set(outPut);
+    outPut = Array.from(outPut);
+    localStorage.setItem("watched", JSON.stringify(outPut));
+  }, []);
+
   return (
     <div className={`container start ${fade}`}>
       {alert == true ? (
