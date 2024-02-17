@@ -8,6 +8,8 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./pages/Detail";
 import axios from "axios";
 import Cart from "./pages/Cart";
+import { useQuery } from "react-query";
+// 리액트 쿼리 - 실시간으로 데이터를 불러와서 보여줘야하는 사이트를 제작할 때 유용(SNS, 주식 등)
 
 export let Context1 = createContext();
 // context api == state보관함
@@ -32,6 +34,17 @@ function App() {
   let [clickNum, setClickNum] = useState(0);
   let navigate = useNavigate();
 
+  let result = useQuery(
+    () =>
+      axios.get("https://codingapple1.github.io/userdata.json").then((a) => {
+        return a.data;
+      }),
+    { staleTime: 2000 }
+    // 리액트 쿼리는 실시간으로 refetch를 해줌, 만약 시간을 설정하고 싶다면 staleTime 옵션 사용
+    // 하위 컴포넌트애 공유하고 싶을 때 굳이 props를 사용하지 않고 해당 컴포넌트에서 다시 axios요청 해도 됨
+    // react-query가 알아서 1번만 요청해서 공유함
+  );
+
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -49,6 +62,11 @@ function App() {
               Detail
             </Nav.Link>
             <Nav.Link href="/About">About</Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            {result.isLoading && "로딩 중"}
+            {result.error && "에러"}
+            {result.data && result.data.name}
           </Nav>
         </Container>
       </Navbar>
